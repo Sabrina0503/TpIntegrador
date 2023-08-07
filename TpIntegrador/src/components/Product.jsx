@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { addCart } from "../redux/action";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
 const Product = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
-
-  const dispatch = useDispatch();
-  const addProduct = (product) => {
-    dispatch(addCart(product));
-  };
 
   useEffect(() => {
     const getProduct = async () => {
@@ -23,7 +16,7 @@ const Product = () => {
       setLoading(false);
     };
     getProduct();
-  }, []);
+  }, [id]);
 
   const Loading = () => {
     return (
@@ -43,15 +36,19 @@ const Product = () => {
       </>
     );
   };
+
   const ShowProduct = () => {
+    const addProductToCart = () => {
+          console.log("Product added to cart:", product);
+    };
+
     return (
       <>
-        <div className="col-md-6">
+        <div className="col-md-6 mb-4">
           <img
             src={product.image}
             alt={product.title}
-            height="400px"
-            width="400px"
+            className="img-fluid"
           />
         </div>
         <div className="col-md-6">
@@ -63,15 +60,17 @@ const Product = () => {
           </p>
           <h3 className="display-6 fw-bold my-4">$ {product.price}</h3>
           <p className="lead">{product.description}</p>
-          <button
-            className="btn btn-outline-dark px-4 py-2"
-            onClick={() => addProduct(product)}
-          >
-            Añadir al Carrito
-          </button>
-          <NavLink to="/cart" className="btn btn-dark ms-2 px-3 py-2">
-            Ir al Carrito
-          </NavLink>
+          <div className="d-flex flex-wrap">
+            <button
+              className="btn btn-outline-dark px-4 py-2 me-2 mb-2"
+              onClick={addProductToCart}
+            >
+              Añadir al Carrito
+            </button>
+            <NavLink to="/cart" className="btn btn-dark px-3 py-2 mb-2">
+              Ir al Carrito
+            </NavLink>
+          </div>
         </div>
       </>
     );

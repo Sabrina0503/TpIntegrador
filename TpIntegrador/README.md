@@ -1,4 +1,4 @@
-# Tp integrador segundo cuatrimestre
+# Tp integrador para la carrera de FullStack
 
 En este proyecto se usaron diferentes frameworks y librerias tales como:
 

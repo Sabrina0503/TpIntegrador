@@ -17,29 +17,27 @@ const Products = () => {
         setData(await response.clone().json());
         setFilter(await response.json());
         setLoading(false);
-        console.log(filter);
       }
-
-      return () => {
-        componentMounted = false;
-      };
     };
     getProducts();
+    return () => {
+      componentMounted = false;
+    };
   }, []);
 
   const Loading = () => {
     return (
       <>
-        <div className="col-md-3">
+        <div className="col-md-3 col-sm-6 mb-4">
           <Skeleton height={350} />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 col-sm-6 mb-4">
           <Skeleton height={350} />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 col-sm-6 mb-4">
           <Skeleton height={350} />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 col-sm-6 mb-4">
           <Skeleton height={350} />
         </div>
       </>
@@ -77,31 +75,31 @@ const Products = () => {
             className="btn btn-outline-dark me-2"
             onClick={() => filterProduct("jewelery")}
           >
-            Joyeria
+            Joyería
           </button>
           <button
             className="btn btn-outline-dark me-2"
             onClick={() => filterProduct("electronics")}
           >
-            Electronica
+            Electrónica
           </button>
         </div>
-        {filter.map((product) => {
-          return (
-            <>
-              <div className="col-md-3 mb-4">
-                <div class="card h-100 text-center p-4" key={product.id}>
+        <div className="row">
+          {filter.map((product) => {
+            return (
+              <div className="col-md-3 col-sm-6 mb-4" key={product.id}>
+                <div className="card h-100 text-center p-4">
                   <img
                     src={product.image}
-                    class="card-img-top"
+                    className="card-img-top"
                     alt={product.title}
                     height="250px"
                   />
-                  <div class="card-body">
-                    <h5 class="card-title mb-0 ">
+                  <div className="card-body">
+                    <h5 className="card-title mb-0">
                       {product.title.substring(0, 12)}...
                     </h5>
-                    <p class="card-text lead fw-bold">${product.price}</p>
+                    <p className="card-text lead fw-bold">${product.price}</p>
                     <NavLink
                       className="btn btn-outline-dark"
                       to={`/products/${product.id}`}
@@ -111,9 +109,9 @@ const Products = () => {
                   </div>
                 </div>
               </div>
-            </>
-          );
-        })}
+            );
+          })}
+        </div>
       </>
     );
   };
@@ -130,7 +128,7 @@ const Products = () => {
           </div>
         </div>
         <div className="row justify-content-center">
-          {loading ? <loading /> : <ShowProducts />}
+          {loading ? <Loading /> : <ShowProducts />}
         </div>
       </div>
     </div>
