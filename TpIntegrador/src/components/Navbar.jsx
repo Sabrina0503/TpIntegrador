@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   const [cartItems, setCartItems] = useState([]);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const addProductToCart = (product) => {
     const existingProduct = cartItems.find((item) => item.id === product.id);
@@ -18,25 +19,25 @@ export default function Navbar() {
   };
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary py-3 bg-white shadow-sm">
         <div className="container">
           <NavLink className="navbar-brand fw-bold fs-3" to="/">
-          Sunflower Clothing
+            Sunflower Clothing
           </NavLink>
           <button
-            className="navbar-toggler"
+            className={`navbar-toggler ${isMobileMenuOpen ? "active" : ""}`}
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+            onClick={toggleMobileMenu}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className={`collapse navbar-collapse ${isMobileMenuOpen ? "show" : ""}`} id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <div className="buttons">
@@ -59,3 +60,4 @@ export default function Navbar() {
     </div>
   );
 }
+
